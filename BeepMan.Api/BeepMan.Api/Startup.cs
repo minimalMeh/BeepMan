@@ -1,16 +1,13 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using BeepMan.Model;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SpaServices.AngularCli;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
 
 namespace BeepMan.Api
 {
@@ -34,11 +31,14 @@ namespace BeepMan.Api
                     .AllowAnyHeader()
                     .AllowAnyMethod());
             });
+            services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(
+                    Configuration.GetConnectionString("DefaultConnection")),
+                    ServiceLifetime.Singleton);
 
-            services.AddSpaStaticFiles(configuration =>
-            {
-                configuration.RootPath = "";  //angular path
-            });
+            //services.AddSpaStaticFiles(configuration =>
+            //{
+            //    configuration.RootPath = "";  //angular path
+            //});
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -53,7 +53,6 @@ namespace BeepMan.Api
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
-
             app.UseRouting();
 
             app.UseEndpoints(endpoints =>
@@ -61,15 +60,15 @@ namespace BeepMan.Api
                 endpoints.MapControllers();
             });
 
-            app.UseSpa(spa =>
-            {
-                spa.Options.SourcePath = ""; //angular path
+            //app.UseSpa(spa =>
+            //{
+            //    spa.Options.SourcePath = ""; //angular path
 
-                if (env.IsDevelopment())
-                {
-                    spa.UseAngularCliServer(npmScript: "start");
-                }
-            });
+            //    if (env.IsDevelopment())
+            //    {
+            //        spa.UseAngularCliServer(npmScript: "start");
+            //    }
+            //});
         }
     }
 }

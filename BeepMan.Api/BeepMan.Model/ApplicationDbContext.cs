@@ -1,12 +1,12 @@
 ﻿using Microsoft.EntityFrameworkCore;
 
-
 namespace BeepMan.Model
 {
-    class ApplicationDbContext : DbContext
+    public class ApplicationDbContext : DbContext
     {
         public ApplicationDbContext(DbContextOptions options) : base(options)
         {
+            Database.EnsureCreated();
         }
 
         public DbSet<User> Users { get; set; }
