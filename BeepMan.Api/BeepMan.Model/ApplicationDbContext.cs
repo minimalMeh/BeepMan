@@ -1,12 +1,14 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Text;
+
 
 namespace BeepMan.Model
 {
     class ApplicationDbContext : DbContext
     {
+        public ApplicationDbContext(DbContextOptions options) : base(options)
+        {
+        }
+
         public DbSet<User> Users { get; set; }
 
         public DbSet<Customer> Customers { get; set; }
@@ -19,6 +21,15 @@ namespace BeepMan.Model
         {
             modelBuilder.Entity<Image>().HasKey(i => i.Id);
             modelBuilder.Entity<Image>().Property(i => i.Id).ValueGeneratedOnAdd();
+            modelBuilder.Entity<Image>().HasOne(i => i.Product).WithMany(p => p.Images).HasForeignKey(k => k.Id).OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<User>().HasKey(u => u.Id);
+
+            modelBuilder.Entity<Product>().HasKey(p => p.Id);
+            modelBuilder.Entity<Product>().HasOne(p => p.User).WithMany(u => u.Products).HasForeignKey(k => k.Id).OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<Customer>().HasKey(c => c.Id);
+            modelBuilder.Entity<Customer>().HasOne(c => c.SelectedProduct);
         }
     }
 }
