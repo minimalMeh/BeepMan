@@ -12,15 +12,13 @@ namespace BeepMan.Api
     public class ProductService : IProductService
     {
         private readonly IRepository<User> _users;
-        private readonly IRepository<Customer> _customers;
         private readonly IRepository<Product> _products;
         private readonly IUnitOfWorkFactory _unitOfWork;
 
-        public ProductService(IRepository<User> users, IRepository<Customer> customers,
+        public ProductService(IRepository<User> users,
             IRepository<Product> products, IUnitOfWorkFactory unitOfWork)
         {
             this._users = users;
-            this._customers = customers;
             this._products = products;
             this._unitOfWork = unitOfWork;
         }
