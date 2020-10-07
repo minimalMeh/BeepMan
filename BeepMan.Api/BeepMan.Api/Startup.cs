@@ -44,6 +44,7 @@ namespace BeepMan.Api
             services.AddScoped<IRepository<Customer>, CustomerRepository>();
             services.AddScoped<IProductService, ProductService>();
             services.AddScoped<IUserService, UserService>();
+            services.AddScoped<ICustomerService, CustomerService>();
 
             //services.AddSpaStaticFiles(configuration =>
             //{
