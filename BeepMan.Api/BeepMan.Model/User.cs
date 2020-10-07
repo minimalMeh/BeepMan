@@ -12,7 +12,6 @@ namespace BeepMan.Model
         [Required]
         public string UserName { get; set; }
 
-        [Required]
         public virtual ICollection<Product> Products { get; set; }
     }
 }
