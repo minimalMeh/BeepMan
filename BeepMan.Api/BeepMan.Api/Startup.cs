@@ -34,7 +34,10 @@ namespace BeepMan.Api
             services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")),
                     ServiceLifetime.Singleton);
-
+            services.AddScoped<IRepository<User>, UserRepository>();
+            services.AddScoped<IRepository<Product>, ProductRepository>();
+            services.AddScoped<IRepository<Image>, ImageRepository>();
+            services.AddScoped<IRepository<Customer>, CustomerRepository>();
             //services.AddSpaStaticFiles(configuration =>
             //{
             //    configuration.RootPath = "";  //angular path

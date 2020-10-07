@@ -1,11 +1,9 @@
 ﻿using BeepMan.Model;
-using Microsoft.AspNetCore.Server.IIS.Core;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
-namespace BeepMan.Api.Servicies
+namespace BeepMan.Api
 {
     public class ImageRepository : IRepository<Image>
     {
