@@ -1,3 +1,5 @@
+using BeepMan.Api.Interfaces;
+using BeepMan.Api.Servicies;
 using BeepMan.Model;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -34,6 +36,8 @@ namespace BeepMan.Api
             services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")),
                     ServiceLifetime.Singleton);
+            
+            services.AddScoped<IUnitOfWorkFactory, UnitOfWork>();
             services.AddScoped<IRepository<User>, UserRepository>();
             services.AddScoped<IRepository<Product>, ProductRepository>();
             services.AddScoped<IRepository<Image>, ImageRepository>();

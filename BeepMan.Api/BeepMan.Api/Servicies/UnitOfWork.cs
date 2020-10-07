@@ -3,10 +3,12 @@ using BeepMan.Model;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Transactions;
+using BeepMan.Api.Interfaces;
+using Microsoft.EntityFrameworkCore;
 
 namespace BeepMan.Api.Servicies
 {
-    public class UnitOfWork : IDisposable
+    public class UnitOfWork : IUnitOfWorkFactory
     {
         private bool disposed = false;
 
@@ -17,7 +19,7 @@ namespace BeepMan.Api.Servicies
             this._context = context;
         }
 
-        public async Task<bool> ExecuteTransactionAsync(Action action, CancellationToken cancellationToken)
+        public async Task<bool> ExecuteTransactionAsync(Action action, CancellationToken cancellationToken = default)
         {
             try
             {
@@ -41,9 +43,14 @@ namespace BeepMan.Api.Servicies
             }
         }
 
-        public Task CommitAsync(CancellationToken cancellationToken)
+        public async Task<bool> CommitAsync(CancellationToken cancellationToken)
         {
-            return _context.SaveChangesAsync(cancellationToken);
+            return await _context.SaveChangesAsync(cancellationToken) > 0;
+        }
+
+        public bool ExecuteSqlCommand(string sql, params object[] parameters)
+        {
+            return this._context.Database.ExecuteSqlRaw(sql, parameters) > 0;
         }
 
         protected virtual void Dispose(bool disposing)
