@@ -43,6 +43,8 @@ namespace BeepMan.Api
             services.AddScoped<IRepository<Image>, ImageRepository>();
             services.AddScoped<IRepository<Customer>, CustomerRepository>();
             services.AddScoped<IProductService, ProductService>();
+            services.AddScoped<IUserService, UserService>();
+
             //services.AddSpaStaticFiles(configuration =>
             //{
             //    configuration.RootPath = "";  //angular path
