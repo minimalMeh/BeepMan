@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace BeepMan.Api.Servicies
+namespace BeepMan.Api
 {
     public class UserService : IUserService
     {

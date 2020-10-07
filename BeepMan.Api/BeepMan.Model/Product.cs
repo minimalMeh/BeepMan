@@ -22,5 +22,7 @@ namespace BeepMan.Model
 
         public virtual ICollection<Image> Images { get; set; }
 
+        public virtual ICollection<Customer> Customers { get; set; }
+
     }
 }

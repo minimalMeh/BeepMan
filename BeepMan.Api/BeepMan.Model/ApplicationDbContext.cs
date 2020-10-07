@@ -29,7 +29,7 @@ namespace BeepMan.Model
             modelBuilder.Entity<Product>().HasOne(p => p.User).WithMany(u => u.Products).HasForeignKey(k => k.Id).OnDelete(DeleteBehavior.Cascade);
 
             modelBuilder.Entity<Customer>().HasKey(c => c.Id);
-            modelBuilder.Entity<Customer>().HasOne(c => c.SelectedProduct);
+            modelBuilder.Entity<Customer>().HasOne(c => c.SelectedProduct).WithMany(prop => prop.Customers).HasForeignKey(k => k.Id);
         }
     }
 }

@@ -43,7 +43,7 @@ namespace BeepMan.Api
         public IList<Customer> GetProductCustomers(Guid productId)
         {
             //TODO: check if needs to change to IQueryable<TEntity>
-            return _customers.GetAll().Where(i => i.SelectedProduct.Id == productId).ToList();
+            return _products.Get(productId).Customers.ToList();
         }
 
         public Task<bool> RemoveProduct(Guid id)
