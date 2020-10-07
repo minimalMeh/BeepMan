@@ -23,7 +23,7 @@ namespace BeepMan.Api
             this._unitOfWork = unitOfWork;
         }
 
-        public Task<bool> CreateProduct(ProductViewModel product)
+        public Task<bool> CreateProductAsync(ProductViewModel product)
         {
             var newProduct = new Product()
             {
@@ -44,7 +44,7 @@ namespace BeepMan.Api
             return _products.Get(productId).Customers.ToList();
         }
 
-        public Task<bool> RemoveProduct(Guid id)
+        public Task<bool> RemoveProductAsync(Guid id)
         {
             this._products.Delete(id);
             return this._unitOfWork.CommitAsync();
