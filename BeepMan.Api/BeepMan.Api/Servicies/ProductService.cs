@@ -9,14 +9,14 @@ using System.Threading.Tasks;
 
 namespace BeepMan.Api
 {
-    public class UserService : IUserService
+    public class ProductService : IProductService
     {
         private readonly IRepository<User> _users;
         private readonly IRepository<Customer> _customers;
         private readonly IRepository<Product> _products;
         private readonly IUnitOfWorkFactory _unitOfWork;
 
-        public UserService(IRepository<User> users, IRepository<Customer> customers,
+        public ProductService(IRepository<User> users, IRepository<Customer> customers,
             IRepository<Product> products, IUnitOfWorkFactory unitOfWork)
         {
             this._users = users;

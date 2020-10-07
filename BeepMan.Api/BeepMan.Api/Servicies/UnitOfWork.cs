@@ -14,7 +14,7 @@ namespace BeepMan.Api.Servicies
 
         private readonly ApplicationDbContext _context;
 
-        protected UnitOfWork(ApplicationDbContext context)
+        public UnitOfWork(ApplicationDbContext context)
         {
             this._context = context;
         }
@@ -34,7 +34,7 @@ namespace BeepMan.Api.Servicies
             }
             catch (TransactionAbortedException e)
             {
-                Console.WriteLine("Transaction rollback.");
+                Console.WriteLine("Transaction rollback. " + e.Message);
                 throw;
             }
             catch

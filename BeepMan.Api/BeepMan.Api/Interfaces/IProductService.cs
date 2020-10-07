@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace BeepMan.Api.Interfaces
 {
-    public interface IUserService
+    public interface IProductService
     {
         Task<bool> CreateProduct(ProductViewModel product);
 
