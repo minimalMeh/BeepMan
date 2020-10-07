@@ -9,9 +9,9 @@ namespace BeepMan.Api.Interfaces
 {
     public interface IUserService
     {
-        Product CreateProduct(ProductViewModel product);
+        Task<bool> CreateProduct(ProductViewModel product);
 
-        void RemoveProduct(ProductViewModel product);
+        Task<bool> RemoveProduct(Guid id);
 
         IList<Customer> GetProductCustomers(Guid productId);
     }
