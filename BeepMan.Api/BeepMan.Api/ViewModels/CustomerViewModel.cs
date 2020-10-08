@@ -1,7 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace BeepMan.Api.ViewModels
 {
@@ -12,6 +9,5 @@ namespace BeepMan.Api.ViewModels
         public string Phone { get; set; }
 
         public Guid ProductId { get; set; }
-
     }
 }
