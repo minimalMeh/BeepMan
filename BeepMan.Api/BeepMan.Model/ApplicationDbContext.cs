@@ -1,15 +1,16 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using System;
 
 namespace BeepMan.Model
 {
-    public class ApplicationDbContext : DbContext
+    public class ApplicationDbContext : IdentityDbContext<IdentityUser<Guid>, IdentityRole<Guid>, Guid>
     {
         public ApplicationDbContext(DbContextOptions options) : base(options)
         {
             Database.EnsureCreated();
         }
-
-        public DbSet<User> Users { get; set; }
 
         public DbSet<Customer> Customers { get; set; }
 
@@ -22,8 +23,6 @@ namespace BeepMan.Model
             modelBuilder.Entity<Image>().HasKey(i => i.Id);
             modelBuilder.Entity<Image>().Property(i => i.Id).ValueGeneratedOnAdd();
             modelBuilder.Entity<Image>().HasOne(i => i.Product).WithMany(p => p.Images).HasForeignKey(k => k.Id).OnDelete(DeleteBehavior.Cascade);
-
-            modelBuilder.Entity<User>().HasKey(u => u.Id);
 
             modelBuilder.Entity<Product>().HasKey(p => p.Id);
             modelBuilder.Entity<Product>().HasOne(p => p.User).WithMany(u => u.Products).HasForeignKey(k => k.Id).OnDelete(DeleteBehavior.Cascade);
