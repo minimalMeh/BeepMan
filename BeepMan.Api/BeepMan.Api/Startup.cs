@@ -11,6 +11,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using System;
 
 namespace BeepMan.Api
 {
@@ -39,7 +40,7 @@ namespace BeepMan.Api
                     ServiceLifetime.Singleton);
 
             services.AddAuthentication();
-            services.AddIdentity<User, IdentityRole>();
+            services.AddIdentity<User, IdentityRole<Guid>>();
 
             services.AddScoped<IUnitOfWorkFactory, UnitOfWork>();
             services.AddScoped<IRepository<User>, UserRepository>();
