@@ -4,6 +4,7 @@ using BeepMan.Model;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SpaServices.AngularCli;
 using Microsoft.EntityFrameworkCore;
@@ -36,7 +37,10 @@ namespace BeepMan.Api
             services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")),
                     ServiceLifetime.Singleton);
-            
+
+            services.AddAuthentication();
+            services.AddIdentity<User, IdentityRole>();
+
             services.AddScoped<IUnitOfWorkFactory, UnitOfWork>();
             services.AddScoped<IRepository<User>, UserRepository>();
             services.AddScoped<IRepository<Product>, ProductRepository>();
