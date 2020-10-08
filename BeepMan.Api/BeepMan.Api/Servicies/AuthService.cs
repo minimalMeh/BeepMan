@@ -3,9 +3,7 @@ using BeepMan.Model;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using System;
-using System.Collections.Generic;
 using System.Data.Entity.Core;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace BeepMan.Api.Servicies
@@ -19,6 +17,14 @@ namespace BeepMan.Api.Servicies
         {
             this._userManager = userManager;
             this._roleManager = roleManager;
+        }
+
+        public async Task<bool> RegisterAsync(User user, string password)
+        {
+            var passwordHash = CryptoService.CalculateHash(password);
+            user.PasswordHash = passwordHash;
+            var result = await _userManager.CreateAsync(user);
+            return result.Succeeded;
         }
 
         public async Task<bool> TryLoginAsync(string email, string password)
@@ -71,5 +77,22 @@ namespace BeepMan.Api.Servicies
             return await _userManager.IsInRoleAsync(await _userManager.Users.FirstOrDefaultAsync(u => u.Id == userId), role);
         }
 
+#if DEBUG
+        public async void GenerateHeadAdminCreds()
+        {
+            var email = "admin@admin.admin";
+            if (await _userManager.FindByEmailAsync(email) != null)
+                return;
+
+            var user = new User()
+            {
+                Id = Guid.NewGuid(),
+                UserName = "admin",
+                Email = "admin@admin.admin"
+            };
+            await RegisterAsync(user, CryptoService.CalculateHash("password"));
+            await AddRoleAsync(user.Id, "Administrator");
+        }
+#endif
     }
 }

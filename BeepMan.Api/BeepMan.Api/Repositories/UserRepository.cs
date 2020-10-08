@@ -30,12 +30,12 @@ namespace BeepMan.Api
 
         public User Get(Guid id)
         {
-            return this._context.Users.FirstOrDefault(i => i.Id == id);
+            return (this._context.Users as IEnumerable<User>).FirstOrDefault(i => i.Id == id);
         }
 
         public IEnumerable<User> GetAll()
         {
-            return this._context.Users;
+            return (this._context.Users as IEnumerable<User>);
         }
 
         public void Update(User item)

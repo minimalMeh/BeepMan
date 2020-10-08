@@ -41,6 +41,7 @@ namespace BeepMan.Api
 
             services.AddAuthentication();
             services.AddIdentity<User, IdentityRole<Guid>>();
+            services.AddScoped<IAuthService, AuthService>();
 
             services.AddScoped<IUnitOfWorkFactory, UnitOfWork>();
             services.AddScoped<IRepository<User>, UserRepository>();
@@ -85,6 +86,11 @@ namespace BeepMan.Api
             //        spa.UseAngularCliServer(npmScript: "start");
             //    }
             //});
+
+#if DEBUG
+            var service = app.ApplicationServices.GetService(typeof(IAuthService)) as AuthService;
+            service.GenerateHeadAdminCreds();
+#endif
         }
     }
 }
