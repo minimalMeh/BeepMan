@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SpaServices.AngularCli;
 using Microsoft.EntityFrameworkCore;
@@ -12,6 +13,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System;
+using System.Threading.Tasks;
 
 namespace BeepMan.Api
 {
@@ -39,17 +41,17 @@ namespace BeepMan.Api
                     Configuration.GetConnectionString("DefaultConnection")),
                     ServiceLifetime.Singleton);
 
-            services.AddAuthentication();
-            services.AddIdentity<User, IdentityRole<Guid>>();
             services.AddScoped<IAuthService, AuthService>();
+            services.AddIdentity<User, Role>()
+                .AddEntityFrameworkStores<ApplicationDbContext>();
 
-            services.AddScoped<IUnitOfWorkFactory, UnitOfWork>();
             services.AddScoped<IRepository<User>, UserRepository>();
             services.AddScoped<IRepository<Product>, ProductRepository>();
             services.AddScoped<IRepository<Image>, ImageRepository>();
             services.AddScoped<IRepository<Customer>, CustomerRepository>();
             services.AddScoped<IProductService, ProductService>();
             services.AddScoped<IUserService, UserService>();
+            services.AddScoped<IUnitOfWorkFactory, UnitOfWork>();
             services.AddScoped<ICustomerService, CustomerService>();
 
             //services.AddSpaStaticFiles(configuration =>
@@ -71,6 +73,7 @@ namespace BeepMan.Api
             app.UseStaticFiles();
 
             app.UseRouting();
+            app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {
@@ -86,11 +89,6 @@ namespace BeepMan.Api
             //        spa.UseAngularCliServer(npmScript: "start");
             //    }
             //});
-
-#if DEBUG
-            var service = app.ApplicationServices.GetService(typeof(IAuthService)) as AuthService;
-            service.GenerateHeadAdminCreds();
-#endif
         }
     }
 }

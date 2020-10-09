@@ -1,4 +1,5 @@
 ﻿using BeepMan.Api.Interfaces;
+using BeepMan.Helpers.Servicies;
 using BeepMan.Model;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -11,9 +12,9 @@ namespace BeepMan.Api.Servicies
     public class AuthService : IAuthService
     {
         private readonly UserManager<User> _userManager;
-        private readonly RoleManager<IdentityRole<Guid>> _roleManager;
+        private readonly RoleManager<Role> _roleManager;
 
-        public AuthService(UserManager<User> userManager, RoleManager<IdentityRole<Guid>> roleManager)
+        public AuthService(UserManager<User> userManager, RoleManager<Role> roleManager)
         {
             this._userManager = userManager;
             this._roleManager = roleManager;
@@ -55,7 +56,7 @@ namespace BeepMan.Api.Servicies
 
             if (!(await _roleManager.RoleExistsAsync(role)))
             {
-                var newRole = new IdentityRole<Guid>()
+                var newRole = new Role()
                 {
                     Name = role
                 };
@@ -76,23 +77,5 @@ namespace BeepMan.Api.Servicies
         {
             return await _userManager.IsInRoleAsync(await _userManager.Users.FirstOrDefaultAsync(u => u.Id == userId), role);
         }
-
-#if DEBUG
-        public async void GenerateHeadAdminCreds()
-        {
-            var email = "admin@admin.admin";
-            if (await _userManager.FindByEmailAsync(email) != null)
-                return;
-
-            var user = new User()
-            {
-                Id = Guid.NewGuid(),
-                UserName = "admin",
-                Email = "admin@admin.admin"
-            };
-            await RegisterAsync(user, CryptoService.CalculateHash("password"));
-            await AddRoleAsync(user.Id, "Administrator");
-        }
-#endif
     }
 }

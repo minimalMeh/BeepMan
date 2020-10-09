@@ -2,7 +2,7 @@
 using System.Text;
 using System.Security.Cryptography;
 
-namespace BeepMan.Api.Servicies
+namespace BeepMan.Helpers.Servicies
 {
     public static class CryptoService
     {

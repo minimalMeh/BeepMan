@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using BeepMan.Model;
+using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,5 +14,7 @@ namespace BeepMan.Api.Interfaces
         Task<bool> AddRoleAsync(Guid userId, string role);
 
         Task<bool> HasRole(Guid userId, string role);
+
+        Task<bool> RegisterAsync(User user, string password);
     }
 }

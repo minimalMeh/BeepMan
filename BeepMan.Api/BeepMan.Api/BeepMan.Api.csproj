@@ -13,6 +13,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\BeepMan.Helpers\BeepMan.Helpers.csproj" />
     <ProjectReference Include="..\BeepMan.Model\BeepMan.Model.csproj" />
   </ItemGroup>
 

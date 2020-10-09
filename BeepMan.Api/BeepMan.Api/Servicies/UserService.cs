@@ -1,6 +1,8 @@
 ﻿using BeepMan.Api.Interfaces;
 using BeepMan.Model;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace BeepMan.Api
@@ -20,6 +22,11 @@ namespace BeepMan.Api
         {
             this._users.Create(new User { Id = Guid.NewGuid(), UserName = userName });
             return this._unitOfWork.CommitAsync();
+        }
+
+        public List<User> GetAllUsers()
+        {
+            return this._users.GetAll().ToList();
         }
     }
 }

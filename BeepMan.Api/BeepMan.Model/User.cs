@@ -9,4 +9,6 @@ namespace BeepMan.Model
     {
         public virtual ICollection<Product> Products { get; set; }
     }
+
+    public class Role : IdentityRole<Guid> { }
 }
