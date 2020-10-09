@@ -14,5 +14,7 @@ namespace BeepMan.Api.Interfaces
         Task<bool> RemoveProductAsync(Guid id);
 
         IList<Customer> GetProductCustomers(Guid productId);
+
+        IList<Product> GetAll();
     }
 }

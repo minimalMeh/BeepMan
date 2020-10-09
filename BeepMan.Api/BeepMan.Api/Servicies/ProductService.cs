@@ -38,9 +38,13 @@ namespace BeepMan.Api
             return this._unitOfWork.CommitAsync();
         }
 
+        public IList<Product> GetAll()
+        {
+            return _products.GetAll().ToList();
+        }
+
         public IList<Customer> GetProductCustomers(Guid productId)
         {
-            //TODO: check if needs to change to IQueryable<TEntity>
             return _products.Get(productId).Customers.ToList();
         }
 

@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using BeepMan.Api.Interfaces;
 using BeepMan.Api.ViewModels;
+using BeepMan.Model;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BeepMan.Api.Controllers
@@ -17,6 +18,12 @@ namespace BeepMan.Api.Controllers
         public ProductsController(IProductService productService)
         {
             this._productService = productService;
+        }
+
+        [HttpGet]
+        public IList<Product> GetAll()
+        {
+            return this._productService.GetAll();
         }
 
         [HttpPost]
