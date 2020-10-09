@@ -18,13 +18,7 @@ namespace BeepMan.Api
             this._unitOfWork = unitOfWork;
         }
 
-        public Task<bool> CreateUserAsync(string userName)
-        {
-            this._users.Create(new User { Id = Guid.NewGuid(), UserName = userName });
-            return this._unitOfWork.CommitAsync();
-        }
-
-        public List<User> GetAllUsers()
+        public IList<User> GetAllUsers()
         {
             return this._users.GetAll().ToList();
         }

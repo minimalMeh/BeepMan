@@ -8,8 +8,6 @@ namespace BeepMan.Api.Interfaces
 {
     public interface IUserService
     {
-        Task<bool> CreateUserAsync(string userName);
-
-        List<User> GetAllUsers();
+        IList<User> GetAllUsers();
     }
 }
