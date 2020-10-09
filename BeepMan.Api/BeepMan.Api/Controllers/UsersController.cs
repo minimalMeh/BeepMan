@@ -1,7 +1,10 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using BeepMan.Api.Constants;
 using BeepMan.Api.Interfaces;
+using BeepMan.Api.ViewModels;
 using BeepMan.Model;
 using Microsoft.AspNetCore.Mvc;
 
@@ -21,17 +24,26 @@ namespace BeepMan.Api.Controllers
         }
 
         [HttpGet]
-        public IActionResult Get()
+        public IList<User> GetAll()
         {
-            return null;
+            return this._userService.GetAllUsers();
         }
 
-        [HttpPost]
-        public async Task<IActionResult> Create([FromBody] string userName)
+        [HttpPost("new")]
+        public async Task<IActionResult> Create([FromBody] RegistrationViewModel user)
         {
-            var result = await this._userService.CreateUserAsync(userName);
+            var newUser = new User()
+            {
+                Id = Guid.NewGuid(),
+                UserName = user.UserName,
+                Email = user.Email,
+                PhoneNumber = user.PhoneNumber
+            };
+
+            var result = await this._authService.RegisterAsync(newUser, user.Password);
             if (result)
             {
+                await this._authService.AddRoleAsync(newUser.Id, Roles.Client);
                 return Ok();
             }
             return BadRequest();
@@ -55,7 +67,7 @@ namespace BeepMan.Api.Controllers
             var res = await this._authService.RegisterAsync(user, "password");
             if (res)
             {
-                await this._authService.AddRoleAsync(user.Id, "Administrator");
+                await this._authService.AddRoleAsync(user.Id, Roles.Adminitrator);
                 return Ok();
             }
 

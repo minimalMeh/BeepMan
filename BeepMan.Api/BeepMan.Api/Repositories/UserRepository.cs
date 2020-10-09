@@ -35,7 +35,7 @@ namespace BeepMan.Api
 
         public IEnumerable<User> GetAll()
         {
-            return (this._context.Users as IEnumerable<User>);
+            return this._context.Users;
         }
 
         public void Update(User item)

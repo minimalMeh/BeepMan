@@ -43,7 +43,8 @@ namespace BeepMan.Api
 
             services.AddScoped<IAuthService, AuthService>();
             services.AddIdentity<User, Role>()
-                .AddEntityFrameworkStores<ApplicationDbContext>();
+                .AddEntityFrameworkStores<ApplicationDbContext>()
+                .AddUserValidator<Model.UserValidator<User>>();
 
             services.AddScoped<IRepository<User>, UserRepository>();
             services.AddScoped<IRepository<Product>, ProductRepository>();
