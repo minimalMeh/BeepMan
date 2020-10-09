@@ -52,23 +52,5 @@ namespace BeepMan.Api.Servicies
         {
             return this._context.Database.ExecuteSqlRaw(sql, parameters) > 0;
         }
-
-        protected virtual void Dispose(bool disposing)
-        {
-            if (!this.disposed)
-            {
-                if (disposing)
-                {
-                    _context.Dispose();
-                }
-                this.disposed = true;
-            }
-        }
-
-        public void Dispose()
-        {
-            Dispose(true);
-            GC.SuppressFinalize(this);
-        }
     }
 }

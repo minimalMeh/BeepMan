@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BeepMan.Api.Interfaces
 {
-    public interface IUnitOfWorkFactory : IDisposable
+    public interface IUnitOfWorkFactory
     {
         Task<bool> ExecuteTransactionAsync(Action action, CancellationToken cancellationToken = default);
 
