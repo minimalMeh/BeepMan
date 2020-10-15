@@ -1,9 +1,7 @@
-﻿using BeepMan.Api.Interfaces;
+﻿using System.Linq;
 using BeepMan.Model;
-using System;
+using BeepMan.Api.Interfaces;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace BeepMan.Api
 {

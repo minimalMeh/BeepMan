@@ -1,7 +1,7 @@
-﻿using BeepMan.Model;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.Linq;
+using BeepMan.Model;
+using System.Collections.Generic;
 
 namespace BeepMan.Api
 {
